@@ -1,0 +1,34 @@
+report(
+    target = "hive://dw/nightly_summary",
+    partition = "day=2026-09-24",
+    owner = "data-platform",
+    priority = "high",
+    retry = 5,
+)
+run(
+    fetch(
+        source = "s3://raw/2026-09-23",
+        retry = 3,
+        timeout = 30,
+        fallback = "s3://raw-archive/2026-09-23",
+    ),
+    alert(channel = "#data-alerts", level = "warn", retries = 3, backoff = "exponential"),
+)
+export(
+    target = hive(
+        catalog = "dw",
+        schema = "nightly",
+        table = "summary",
+        partition = "day=2026-09-24",
+    ),
+    mode = "overwrite",
+    workers = 8,
+    batch = 2000,
+)
+wrap(fetch(
+    source = "s3://raw/2026-09-24",
+    retry = 3,
+    timeout = 30,
+    fallback = "s3://raw-archive/2026-09-24",
+))
+note(message = "这一条只有一个参数，中间也没有逗号，所以即使超过一百列也不拆行，整行按规范间距重排后保留。")

@@ -1,0 +1,10 @@
+# 每份文件允许的最大改动行数，写法：<文件名> <上界>
+# 口径见 README 第 2.4 节：行级最长公共序列之外的行数（原文件被替换或删除的行数 + 结果新增的行数）
+
+comments.task 21
+blank-lines.task 12
+long-args.task 39
+messy.task 11
+tidy.task 0
+empty.task 0
+large.task 8682

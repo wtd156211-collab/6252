@@ -1,0 +1,14 @@
+
+   
+fetch(source = "s3://raw/2026-09-24")
+
+
+aggregate(keys = "day,region")   
+
+
+
+# 分区重建：这条注释属于下面的语句，折叠空行时不能把它一起带走
+notify(channel = "#data-alerts")
+
+
+	

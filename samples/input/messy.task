@@ -1,0 +1,6 @@
+fetch(  source = "s3://raw/2026-09-24" ,retry = 3 )	   
+aggregate(keys = "day,region",
+    window = "1d")
+notify(channel = "#data-alerts")   #  值班（注释里的空格原样保留）
+	notify(channel = "#ops")  
+export(mode = "append", workers = 8)

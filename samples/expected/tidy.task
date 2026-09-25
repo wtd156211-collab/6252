@@ -1,0 +1,5 @@
+# 夜间汇总：这份文件已经是规范形状，再跑一遍必须是零改动。
+fetch(source = "s3://raw/2026-09-24", retry = 3, timeout = 30)
+aggregate(source = fetch(source = "s3://raw/2026-09-24", retry = 3), keys = "day,region")
+
+notify(channel = "#data-alerts", level = "warn")
